@@ -15,24 +15,30 @@ def nuevo_directorio():
             print("RUTA NO VÁLIDA")
         
 def archiv():
-    archiv = input("Introduzca nombre del archivo: ")
-    archivo = (archiv+".wav")
+    while True:
+        archiv = input("Introduzca nombre del archivo: ")
+        archivo = (archiv+".wav")
+        if archivo in os.listdir():
+            elim = ns(input("Ya existe un archivo con ese nombre, ¿Desea sobreescribirlo?: "))
+            if elim=="s":
+                break
+            else:
+                continue
+        else:
+            break
     return archivo
 
 nuevo_directorio()
 
-#DEFINIMOS PARAMETROS
-FORMAT=pyaudio.paInt16
-CHANNELS=2
-RATE=44100
-CHUNK=1024
-
-
-
-#INICIAMOS "pyaudio"
-audio=pyaudio.PyAudio()
-
 while True:
+    #DEFINIMOS PARAMETROS
+    FORMAT=pyaudio.paInt16
+    CHANNELS=2
+    RATE=44100
+    CHUNK=1024
+
+    #INICIAMOS "pyaudio"
+    audio=pyaudio.PyAudio()
     duracion=OKI(input("Indique duracion, en segundos, de la grabación: "))
 
     #INICIAMOS GRABACIÓN
