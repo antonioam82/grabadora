@@ -20,17 +20,16 @@ def direc():
 ventana = Tk()
 ventana.title('Grabadora')
 
- 
 time = Label(ventana, fg='red', width=20, font=("","30"))
 time.pack()
 ventana.geometry("470x77")
  
 frame=Frame(ventana)
-btnIniciar=Button(frame, fg='blue',width=20, text='Iniciar', command=iniciar)
+btnIniciar=Button(frame, fg='blue',width=21, text='Iniciar', command=iniciar)
 btnIniciar.grid(row=1, column=1)
-btnParar=Button(frame, fg='blue', width=20, text='Parar', command=parar)
+btnParar=Button(frame, fg='blue', width=21, text='Parar', command=parar)
 btnParar.grid(row=1, column=2)
-btnDir=Button(frame, text="Directorio",width=20,command=direc)
+btnDir=Button(frame, text="Directorio",width=21, command=direc)
 btnDir.grid(row=1,column=0)
 frame.pack()
  
