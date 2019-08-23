@@ -1,4 +1,5 @@
 from tkinter import Tk,Label,Button,Frame,filedialog
+import os
  
 def iniciar(contador=0):
     global proceso
