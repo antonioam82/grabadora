@@ -4,23 +4,18 @@ import os
 import wave
 import threading
 
-FORMAT=pyaudio.paInt16
-CHANNELS=2
-RATE=44100
-CHUNK=1024
-archivo="grabacion.wav"
-    #global proceso
-
-audio=pyaudio.PyAudio()
-
 #proceso=0
 #contador=0
 
 def iniciar():
     global grabando
-    #global proceso
     grabando=True
-    #time['text'] = contador
+    FORMAT=pyaudio.paInt16
+    CHANNELS=2
+    RATE=44100
+    CHUNK=1024
+    archivo="grabacion.wav"
+    audio=pyaudio.PyAudio()
     
     t1=threading.Thread(target=grabacion, args=(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo))
     t1.start()
@@ -28,9 +23,7 @@ def iniciar():
  
 def parar():
     global grabando
-    #global proceso
     grabando=False
-    #time.after_cancel(proceso)
 
 def direc():
     directorio=filedialog.askdirectory()
@@ -38,13 +31,14 @@ def direc():
         os.chdir(directorio)
 
 def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
-    print("GRABANDO")
+    
     stream=audio.open(format=FORMAT,channels=CHANNELS,
                           rate=RATE, input=True,
                           frames_per_buffer=CHUNK)
 
     frames=[]
-    #proceso=time.after(1000, iniciar, (contador+1))
+
+    print("GRABANDO")
     while grabando==True:
         data=stream.read(CHUNK)
         frames.append(data)
@@ -80,3 +74,4 @@ btnDir.grid(row=1,column=0)
 frame.pack()
  
 ventana.mainloop()
+
