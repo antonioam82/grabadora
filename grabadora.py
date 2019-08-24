@@ -13,7 +13,7 @@ def iniciar(contador=0):
     
     t1=threading.Thread(target=grabacion)
     t1.start()
-    proceso=time.after(1000, iniciar, (contador+1))
+    proceso=time.after(1000, iniciar, (contador+1))#t2=threadin.thread....
  
 def parar():
     global grabando
