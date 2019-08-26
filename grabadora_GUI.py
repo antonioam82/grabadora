@@ -7,6 +7,7 @@ contador=0
 def iniciar():
     global grabando
     global proceso
+    btnIniciar.config(state='disabled')
     #contador=0
     grabando=True
     FORMAT=pyaudio.paInt16
@@ -20,17 +21,20 @@ def iniciar():
     t1.start()
     t.start()
     
+    
 def cuenta(contador=0):
     global proceso
     time['text'] = contador
     contador+1
     proceso=time.after(1000, cuenta, (contador+1))
     
+ 
 def parar():
     global grabando
     global proceso
     grabando=False
     time.after_cancel(proceso)
+    btnIniciar.config(state='normal')
 
 def direc():
     directorio=filedialog.askdirectory()
@@ -42,6 +46,7 @@ def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
     stream=audio.open(format=FORMAT,channels=CHANNELS,
                           rate=RATE, input=True,
                           frames_per_buffer=CHUNK)
+
     frames=[]
 
     print("GRABANDO")
