@@ -71,7 +71,7 @@ def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
 ventana = Tk()
 ventana.title('Grabadora')
 
-time = Label(ventana, fg='red', width=20, font=("","30"))
+time = Label(ventana, fg='green', width=20, bg="black", font=("","30"))
 time.pack()
 ventana.geometry("470x77")
  
@@ -85,4 +85,3 @@ btnDir.grid(row=1,column=0)
 frame.pack()
  
 ventana.mainloop()
-
