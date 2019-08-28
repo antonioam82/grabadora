@@ -8,6 +8,7 @@ def iniciar():
     global grabando
     global proceso
     btnIniciar.config(state='disabled')
+    btnDir.config(state='disabled')
     #contador=0
     grabando=True
     FORMAT=pyaudio.paInt16
@@ -28,13 +29,13 @@ def cuenta(contador=0):
     contador+1
     proceso=time.after(1000, cuenta, (contador+1))
     
- 
 def parar():
     global grabando
     global proceso
     grabando=False
     time.after_cancel(proceso)
     btnIniciar.config(state='normal')
+    btnDir.config(state='normal')
 
 def direc():
     directorio=filedialog.askdirectory()
