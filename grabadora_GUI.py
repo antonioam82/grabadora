@@ -4,7 +4,7 @@ import os
 import wave
 import threading
 
-act_proceso=False
+grabando=False
 
 def iniciar():
     global grabando
@@ -34,9 +34,8 @@ def cuenta(contador=0):
     
 def parar():
     global grabando
-    #global proceso
-    grabando=False
-    if act_proceso==True:
+    if grabando==True:
+        grabando=False
         time.after_cancel(proceso)
         btnIniciar.config(state='normal')
         btnDir.config(state='normal')
@@ -90,4 +89,5 @@ btnDir.grid(row=1,column=0)
 frame.pack()
  
 ventana.mainloop()
+
 
