@@ -19,8 +19,8 @@ def iniciar():
     audio=pyaudio.PyAudio()
     t1=threading.Thread(target=grabacion, args=(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo))
     t=threading.Thread(target=cuenta)
-    t1.start(),t.start()
-    
+    t1.start()
+    t.start()
     
 def cuenta(contador=0):
     global proceso
