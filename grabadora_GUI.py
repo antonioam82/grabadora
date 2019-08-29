@@ -3,7 +3,7 @@ import pyaudio
 import os
 import wave
 import threading
-contador=0
+
 def iniciar():
     global grabando
     global proceso
