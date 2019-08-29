@@ -4,9 +4,12 @@ import os
 import wave
 import threading
 
+act_proceso=False
+
 def iniciar():
     global grabando
     global proceso
+    global act_proceso
     btnIniciar.config(state='disabled')
     btnDir.config(state='disabled')
     #contador=0
@@ -15,6 +18,7 @@ def iniciar():
     CHANNELS=2
     RATE=44100
     CHUNK=1024
+    act_proceso=True
     archivo="grabacion.wav"
     audio=pyaudio.PyAudio()
     t1=threading.Thread(target=grabacion, args=(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo))
@@ -30,11 +34,12 @@ def cuenta(contador=0):
     
 def parar():
     global grabando
-    global proceso
+    #global proceso
     grabando=False
-    time.after_cancel(proceso)
-    btnIniciar.config(state='normal')
-    btnDir.config(state='normal')
+    if act_proceso==True:
+        time.after_cancel(proceso)
+        btnIniciar.config(state='normal')
+        btnDir.config(state='normal')
 
 def direc():
     directorio=filedialog.askdirectory()
@@ -85,3 +90,4 @@ btnDir.grid(row=1,column=0)
 frame.pack()
  
 ventana.mainloop()
+
