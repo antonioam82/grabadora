@@ -67,6 +67,14 @@ def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
     audio.terminate()
 
     #CREAMOS/GUARDAMOS EL ARCHIVO DE AUDIO
+    count=0
+    for i in os.listdir():
+        #name,ext=os.path.splitex(i)
+        if "grabacion" in i:              #if len(name)==9 and "grabacion" in name and ext==".wav":
+            count+=1
+    if count>0:
+        archivo=archivo+" "+str(count)+".wav"
+        
     waveFile = wave.open(archivo, 'wb')
     waveFile.setnchannels(CHANNELS)
     waveFile.setsampwidth(audio.get_sample_size(FORMAT))
@@ -93,3 +101,4 @@ btnAbrir.grid(row=1,column=3)
 frame.pack()
  
 ventana.mainloop()
+
