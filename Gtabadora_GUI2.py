@@ -73,7 +73,7 @@ def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
         if "grabacion" in i:              #if len(name)==9 and "grabacion" in name and ext==".wav":
             count+=1
     if count>0:
-        archivo=archivo+" "+str(count)+".wav"
+        archivo="grabacion"+" "+str(count)+".wav"
         
     waveFile = wave.open(archivo, 'wb')
     waveFile.setnchannels(CHANNELS)
