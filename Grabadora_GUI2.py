@@ -5,6 +5,7 @@ import wave
 import threading
 
 grabando=False
+audio=pyaudio.PyAudio()
 
 def iniciar():
     global grabando
@@ -20,7 +21,7 @@ def iniciar():
     CHUNK=1024
     act_proceso=True
     archivo="grabacion.wav"
-    audio=pyaudio.PyAudio()
+    #audio=pyaudio.PyAudio()
     t1=threading.Thread(target=grabacion, args=(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo))
     t=threading.Thread(target=cuenta)
     t1.start()
@@ -32,7 +33,10 @@ def cuenta(contador=0):
     contador+1
     proceso=time.after(1000, cuenta, (contador+1))
 
-#def abrir():
+def abrir():
+    open_archive=filedialog.askopenfilename(initialdir = "/",
+                 title = "Seleccione archivo",filetypes = (("wav files","*.wav"),
+                 ("all files","*.*")))
     
 def parar():
     global grabando
@@ -96,7 +100,7 @@ btnParar=Button(frame, fg='blue', width=16, text='Parar', command=parar)
 btnParar.grid(row=1, column=2)
 btnDir=Button(frame, text="Directorio",width=16,command=direc)
 btnDir.grid(row=1,column=0)
-btnAbrir=Button(frame, text="Abrir",width=16)
+btnAbrir=Button(frame, text="Abrir",width=16,command=abrir)
 btnAbrir.grid(row=1,column=3)
 frame.pack()
  
