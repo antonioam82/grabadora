@@ -15,8 +15,9 @@ def iniciar():
     global grabando
     global proceso
     global act_proceso
-    btnIniciar.config(state='disabled')
-    btnDir.config(state='disabled')
+    bloqueo('disabled')
+    #btnIniciar.config(state='disabled')
+    #btnDir.config(state='disabled')
     #contador=0
     grabando=True
     FORMAT=pyaudio.paInt16
@@ -53,6 +54,7 @@ def abrir():
                 rate = f.getframerate(),
                 output = True)
     data = f.readframes(CHUNK)
+    bloqueo('disabled')
     t=threading.Thread(target=cuenta)
     t.start()
     t2=threading.Thread(target=reproduce)
@@ -75,7 +77,12 @@ def reproduce():
     audio.terminate()
     time.after_cancel(proceso)
     print("FIN")
+    bloqueo('normal')
 
+def bloqueo(s):
+    btnIniciar.config(state=s)
+    btnDir.config(state=s)
+    btnAbrir.config(state=s)
     
     
 def parar():
@@ -83,8 +90,9 @@ def parar():
     if grabando==True:
         grabando=False
         time.after_cancel(proceso)
-        btnIniciar.config(state='normal')
-        btnDir.config(state='normal')
+        bloqueo('normal')
+        #btnIniciar.config(state='normal')
+        #btnDir.config(state='normal')
 
 def direc():
     directorio=filedialog.askdirectory()
