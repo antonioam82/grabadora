@@ -5,7 +5,6 @@ import wave
 import threading
 
 grabando=False
-audio=pyaudio.PyAudio()
 CHUNK=1024
 data=""
 stream=""
@@ -15,6 +14,7 @@ def iniciar():
     global grabando
     global proceso
     global act_proceso
+    audio=pyaudio.PyAudio()
     bloqueo('disabled')
     #btnIniciar.config(state='disabled')
     #btnDir.config(state='disabled')
@@ -23,7 +23,6 @@ def iniciar():
     FORMAT=pyaudio.paInt16
     CHANNELS=2
     RATE=44100
-    
     act_proceso=True
     archivo="grabacion.wav"
     #audio=pyaudio.PyAudio()
@@ -64,6 +63,7 @@ def reproduce():
     global data
     global stream
     global f
+    audio=pyaudio.PyAudio()
     #play stream  
     while data:  
         stream.write(data)  
@@ -87,6 +87,7 @@ def bloqueo(s):
     
 def parar():
     global grabando
+    global audio
     if grabando==True:
         grabando=False
         time.after_cancel(proceso)
