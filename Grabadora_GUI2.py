@@ -6,6 +6,10 @@ import threading
 
 grabando=False
 audio=pyaudio.PyAudio()
+CHUNK=1024
+data=""
+stream=""
+f=""
 
 def iniciar():
     global grabando
@@ -18,7 +22,7 @@ def iniciar():
     FORMAT=pyaudio.paInt16
     CHANNELS=2
     RATE=44100
-    CHUNK=1024
+    
     act_proceso=True
     archivo="grabacion.wav"
     #audio=pyaudio.PyAudio()
@@ -34,9 +38,45 @@ def cuenta(contador=0):
     proceso=time.after(1000, cuenta, (contador+1))
 
 def abrir():
+    #chunk = 1024
+    global data
+    global stream
+    global f
+    audio=pyaudio.PyAudio()
     open_archive=filedialog.askopenfilename(initialdir = "/",
                  title = "Seleccione archivo",filetypes = (("wav files","*.wav"),
                  ("all files","*.*")))
+    
+    f = wave.open(open_archive,"rb")
+    stream = audio.open(format = audio.get_format_from_width(f.getsampwidth()),  
+                channels = f.getnchannels(),  
+                rate = f.getframerate(),
+                output = True)
+    data = f.readframes(CHUNK)
+    t=threading.Thread(target=cuenta)
+    t.start()
+    t2=threading.Thread(target=reproduce)
+    t2.start()
+
+def reproduce():
+    global data
+    global stream
+    global f
+    #play stream  
+    while data:  
+        stream.write(data)  
+        data = f.readframes(CHUNK)  
+
+    #stop stream  
+    stream.stop_stream()  
+    stream.close()  
+
+    #close PyAudio  
+    audio.terminate()
+    time.after_cancel(proceso)
+    print("FIN")
+
+    
     
 def parar():
     global grabando
@@ -105,4 +145,5 @@ btnAbrir.grid(row=1,column=3)
 frame.pack()
  
 ventana.mainloop()
+
 
