@@ -22,7 +22,6 @@ def iniciar():
     RATE=44100
     act_proceso=True
     archivo="grabacion.wav"
-    #audio=pyaudio.PyAudio()
     t1=threading.Thread(target=grabacion, args=(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo))
     t=threading.Thread(target=cuenta)
     t1.start()
@@ -35,7 +34,6 @@ def cuenta(contador=0):
     proceso=time.after(1000, cuenta, (contador+1))
 
 def abrir():
-    #chunk = 1024
     global data
     global stream
     global f
