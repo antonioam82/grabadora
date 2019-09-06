@@ -16,9 +16,6 @@ def iniciar():
     global act_proceso
     audio=pyaudio.PyAudio()
     bloqueo('disabled')
-    #btnIniciar.config(state='disabled')
-    #btnDir.config(state='disabled')
-    #contador=0
     grabando=True
     FORMAT=pyaudio.paInt16
     CHANNELS=2
@@ -92,8 +89,6 @@ def parar():
         grabando=False
         time.after_cancel(proceso)
         bloqueo('normal')
-        #btnIniciar.config(state='normal')
-        #btnDir.config(state='normal')
 
 def direc():
     directorio=filedialog.askdirectory()
@@ -122,8 +117,8 @@ def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
     #CREAMOS/GUARDAMOS EL ARCHIVO DE AUDIO
     count=0
     for i in os.listdir():
-        #name,ext=os.path.splitex(i)
-        if "grabacion" in i:              #if len(name)==9 and "grabacion" in name and ext==".wav":
+        new=(i).split(".")
+        if "grabacion" in new[0] and new[1]=="wav":
             count+=1
     if count>0:
         archivo="grabacion"+"("+str(count)+")"+".wav"
