@@ -43,18 +43,18 @@ def abrir():
     open_archive=filedialog.askopenfilename(initialdir = "/",
                  title = "Seleccione archivo",filetypes = (("wav files","*.wav"),
                  ("all files","*.*")))
-    
-    f = wave.open(open_archive,"rb")
-    stream = audio.open(format = audio.get_format_from_width(f.getsampwidth()),  
-                channels = f.getnchannels(),  
-                rate = f.getframerate(),
-                output = True)
-    data = f.readframes(CHUNK)
-    bloqueo('disabled')
-    t=threading.Thread(target=cuenta)
-    t.start()
-    t2=threading.Thread(target=reproduce)
-    t2.start()
+    if open_archive!="":
+        f = wave.open(open_archive,"rb")
+        stream = audio.open(format = audio.get_format_from_width(f.getsampwidth()),  
+                    channels = f.getnchannels(),  
+                    rate = f.getframerate(),
+                    output = True)
+        data = f.readframes(CHUNK)
+        bloqueo('disabled')
+        t=threading.Thread(target=cuenta)
+        t.start()
+        t2=threading.Thread(target=reproduce)
+        t2.start()
 
 def reproduce():
     global data
@@ -149,5 +149,4 @@ btnAbrir.grid(row=1,column=3)
 frame.pack()
  
 ventana.mainloop()
-
 
