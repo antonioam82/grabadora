@@ -82,7 +82,6 @@ def bloqueo(s):
     
 def parar():
     global grabando
-    global audio
     if grabando==True:
         grabando=False
         time.after_cancel(proceso)
