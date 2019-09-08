@@ -5,6 +5,7 @@ import wave
 import threading
 
 grabando=False
+reproduciendo=False
 CHUNK=1024
 data=""
 stream=""
@@ -37,11 +38,13 @@ def abrir():
     global data
     global stream
     global f
+    global reproduciendo
     audio=pyaudio.PyAudio()
     open_archive=filedialog.askopenfilename(initialdir = "/",
                  title = "Seleccione archivo",filetypes = (("wav files","*.wav"),
                  ("all files","*.*")))
     if open_archive!="":
+        reproduciendo=True
         f = wave.open(open_archive,"rb")
         stream = audio.open(format = audio.get_format_from_width(f.getsampwidth()),  
                     channels = f.getnchannels(),  
@@ -60,7 +63,7 @@ def reproduce():
     global f
     audio=pyaudio.PyAudio()
     #play stream  
-    while data:  
+    while data and reproduciendo==True:  
         stream.write(data)  
         data = f.readframes(CHUNK)  
 
@@ -82,9 +85,13 @@ def bloqueo(s):
     
 def parar():
     global grabando
+    global reproduciendo
     if grabando==True:
         grabando=False
         time.after_cancel(proceso)
+        bloqueo('normal')
+    elif reproduciendo==True:
+        reproduciendo=False
         bloqueo('normal')
 
 def direc():
