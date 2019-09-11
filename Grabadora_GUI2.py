@@ -61,17 +61,14 @@ def reproduce():
     global data
     global stream
     global f
-    audio=pyaudio.PyAudio()
-    #play stream  
+    audio=pyaudio.PyAudio() 
     while data and reproduciendo==True:  
         stream.write(data)  
         data = f.readframes(CHUNK)  
-
-    #stop stream  
+ 
     stream.stop_stream()  
     stream.close()  
-
-    #close PyAudio  
+ 
     audio.terminate()
     time.after_cancel(proceso)
     print("FIN")
