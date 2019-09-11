@@ -86,10 +86,9 @@ def parar():
     if grabando==True:
         grabando=False
         time.after_cancel(proceso)
-        bloqueo('normal')
     elif reproduciendo==True:
         reproduciendo=False
-        bloqueo('normal')
+    bloqueo('normal')
 
 def direc():
     directorio=filedialog.askdirectory()
