@@ -16,14 +16,18 @@ contador=0
 contador1=0
 contador2=0
 
-def iniciar():
-    global grabando
-    global proceso
-    global act_proceso
+def clear_contador():
     global contador,contador1,contador2
     contador=0
     contador1=0
     contador2=0
+
+def iniciar():
+    global grabando
+    global proceso
+    global act_proceso
+    #global contador,contador1,contador2
+    clear_contador()
     audio=pyaudio.PyAudio()
     bloqueo('disabled')
     grabando=True
@@ -55,10 +59,8 @@ def abrir():
     global stream
     global f
     global reproduciendo
-    global contador, contador1,contador2
-    contador=0
-    contador1=0
-    contador2=0
+    #global contador, contador1,contador2
+    clear_contador()
     audio=pyaudio.PyAudio()
     open_archive=filedialog.askopenfilename(initialdir = "/",
                  title = "Seleccione archivo",filetypes = (("wav files","*.wav"),
@@ -103,13 +105,11 @@ def bloqueo(s):
 def parar():
     global grabando
     global reproduciendo
-    global contador,contador1,contador2
+    #global contador,contador1,contador2
     if grabando==True:
         grabando=False
         time.after_cancel(proceso)
-        contador=0
-        contador1=0
-        contador2=0
+        clear_contador()
     elif reproduciendo==True:
         reproduciendo=False
     bloqueo('normal')
@@ -166,7 +166,7 @@ btnIniciar=Button(frame, fg='blue',width=16, text='Iniciar', command=iniciar)
 btnIniciar.grid(row=1, column=1)
 btnParar=Button(frame, fg='blue', width=16, text='Parar', command=parar)
 btnParar.grid(row=1, column=2)
-btnDir=Button(frame, text="Directorio",width=16,command=direc)
+btnDir=Button(frame, text="Carpeta",width=16,command=direc)
 btnDir.grid(row=1,column=0)
 btnAbrir=Button(frame, text="Abrir",width=16,command=abrir)
 btnAbrir.grid(row=1,column=3)
