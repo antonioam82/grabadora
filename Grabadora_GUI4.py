@@ -167,7 +167,7 @@ def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
 ventana = Tk()
 ventana.title('Grabadora')
 
-time = Label(ventana, fg='green', width=20, text="0:0:0", bg="black", font=("","30"))
+time = Label(ventana, fg='green', width=20, text="00:00:00", bg="black", font=("","30"))
 time.pack()
 ventana.geometry("488x77")
  
