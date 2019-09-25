@@ -164,7 +164,7 @@ def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
     waveFile.close()
 
 ventana = Tk()
-ventana.title('Grabadora')
+ventana.title('Grabadora Audio')
 
 time = Label(ventana, fg='green', width=20, text="00:00:00", bg="black", font=("","30"))
 time.pack()
