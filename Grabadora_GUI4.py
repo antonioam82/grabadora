@@ -29,6 +29,7 @@ def iniciar():
     #global contador,contador1,contador2
     clear_contador()
     audio=pyaudio.PyAudio()
+    #btnParar.config(text="Parar Grabación")
     bloqueo('disabled')
     grabando=True
     FORMAT=pyaudio.paInt16
@@ -44,8 +45,6 @@ def iniciar():
 def formato(c):
     if c<10:
         c="0"+str(c)
-    else:
-        c=str(c)
     return c
     
 def cuenta():
