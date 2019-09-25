@@ -51,11 +51,11 @@ def formato(c):
 def cuenta():
     global proceso
     global contador,contador1,contador2
-    stc=formato(contador)
-    stc1=formato(contador1)
-    stc2=formato(contador2)
-    #time['text'] = str(contador1)+":"+str(contador2)+":"+str(contador)
-    time['text'] = stc1+":"+stc2+":"+stc 
+    #stc=formato(contador)
+    #stc1=formato(contador1)
+    #stc2=formato(contador2)
+    time['text'] = str(formato(contador1))+":"+str(formato(contador2))+":"+str(formato(contador))
+    #time['text'] = stc1+":"+stc2+":"+stc 
     contador+=1
     if contador==60:
         contador=0
