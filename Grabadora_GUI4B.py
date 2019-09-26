@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from tkinter import Tk,Label,Button,Frame,filedialog
-from tkinter import *
+from tkinter import Tk,Label,Button,Frame,filedialog,Entry,StringVar
+#from tkinter import *
 import pyaudio
 import os
 import wave
