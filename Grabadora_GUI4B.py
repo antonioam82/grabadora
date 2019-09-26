@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from tkinter import Tk,Label,Button,Frame,filedialog
+#from tkinter import Tk,Label,Button,Frame,filedialog
 from tkinter import *
 import pyaudio
 import os
@@ -13,7 +13,6 @@ CHUNK=1024
 data=""
 stream=""
 f=""
-
 contador=0
 contador1=0
 contador2=0
@@ -174,7 +173,6 @@ def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
     waveFile.close()
 
 dire()
-
 time = Label(ventana, fg='green', width=20, text="00:00:00", bg="black", font=("","30"))
 time.pack()
 ventana.geometry("488x97")
