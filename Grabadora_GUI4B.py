@@ -174,20 +174,21 @@ def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
 
 dire()
 time = Label(ventana, fg='green', width=20, text="00:00:00", bg="black", font=("","30"))
-time.pack()
+time.place(x=10,y=20)
+#time.pack()
 ventana.geometry("488x97")
  
 #frame=Frame(ventana)
 btnIniciar=Button(ventana, fg='blue',width=16, text='Iniciar', command=iniciar)
-btnIniciar.place(x=122,y=51)
+btnIniciar.place(x=122,y=71)
 btnParar=Button(ventana, fg='blue', width=16, text='Parar', command=parar)
-btnParar.place(x=244,y=51)
+btnParar.place(x=244,y=71)
 btnDir=Button(ventana, text="Carpeta",width=16,command=direc)
-btnDir.place(x=0,y=51)
+btnDir.place(x=0,y=71)
 btnAbrir=Button(ventana, text="Abrir",width=16,command=abrir)
-btnAbrir.place(x=366,y=51)
-etDir=Entry(ventana,width=90,textvariable=directorio_actual)
-etDir.place(x=0,y=77)
+btnAbrir.place(x=366,y=71)#51
+etDir=Entry(ventana,width=80,textvariable=directorio_actual)
+etDir.place(x=2,y=0)
 #frame.pack()
  
 ventana.mainloop()
