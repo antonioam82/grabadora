@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from tkinter import Tk,Label,Button,Frame,filedialog,Entry,StringVar
 #from tkinter import *
+import glob
 import pyaudio
 import os
 import wave
@@ -156,11 +157,13 @@ def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
     stream.close()
     audio.terminate()
 
+    grabs = glob.glob('*.wav')
+
     #CREAMOS/GUARDAMOS EL ARCHIVO DE AUDIO
     count=0
-    for i in os.listdir():
+    for i in grabs:
         new=(i).split(".")
-        if "grabacion" in new[0] and new[1]=="wav":
+        if "grabacion" in i:
             count+=1
     if count>0:
         archivo="grabacion"+"("+str(count)+")"+".wav"
@@ -192,3 +195,5 @@ etDir.place(x=2,y=0)
 #frame.pack()
  
 ventana.mainloop()
+
+
