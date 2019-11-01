@@ -162,7 +162,6 @@ def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
     #CREAMOS/GUARDAMOS EL ARCHIVO DE AUDIO
     count=0
     for i in grabs:
-        new=(i).split(".")
         if "grabacion" in i:
             count+=1
     if count>0:
