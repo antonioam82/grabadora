@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from tkinter import Tk,Label,Button,Frame,filedialog
 import pyaudio
+import glob
 import os
 import wave
 import threading
@@ -26,10 +27,8 @@ def iniciar():
     global grabando
     global proceso
     global act_proceso
-    #global contador,contador1,contador2
     clear_contador()
     audio=pyaudio.PyAudio()
-    #btnParar.config(text="Parar Grabación")
     bloqueo('disabled')
     grabando=True
     FORMAT=pyaudio.paInt16
@@ -50,11 +49,7 @@ def formato(c):
 def cuenta():
     global proceso
     global contador,contador1,contador2
-    #stc=formato(contador)
-    #stc1=formato(contador1)
-    #stc2=formato(contador2)
     time['text'] = str(formato(contador1))+":"+str(formato(contador2))+":"+str(formato(contador))
-    #time['text'] = stc1+":"+stc2+":"+stc 
     contador+=1
     if contador==60:
         contador=0
@@ -69,7 +64,6 @@ def abrir():
     global stream
     global f
     global reproduciendo
-    #global contador, contador1,contador2
     clear_contador()
     audio=pyaudio.PyAudio()
     open_archive=filedialog.askopenfilename(initialdir = "/",
@@ -103,7 +97,6 @@ def reproduce():
  
     audio.terminate()
     time.after_cancel(proceso)
-    print("FIN")
     bloqueo('normal')
 
 def bloqueo(s):
@@ -114,7 +107,6 @@ def bloqueo(s):
 def parar():
     global grabando
     global reproduciendo
-    #global contador,contador1,contador2
     if grabando==True:
         grabando=False
         time.after_cancel(proceso)
@@ -136,11 +128,9 @@ def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
 
     frames=[]
 
-    print("GRABANDO")
     while grabando==True:
         data=stream.read(CHUNK)
         frames.append(data)
-    print("fin")
 
     #DETENEMOS GRABACIÓN
     stream.stop_stream()
@@ -149,9 +139,8 @@ def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
 
     #CREAMOS/GUARDAMOS EL ARCHIVO DE AUDIO
     count=0
-    for i in os.listdir():
-        new=(i).split(".")
-        if "grabacion" in new[0] and new[1]=="wav":
+    for i in glob.glob("*.wav"):
+        if "grabacion" in i:
             count+=1
     if count>0:
         archivo="grabacion"+"("+str(count)+")"+".wav"
