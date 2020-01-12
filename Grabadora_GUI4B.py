@@ -18,7 +18,7 @@ contador1=0
 contador2=0
 
 ventana = Tk()
-ventana.title('Grabadora Audio')
+ventana.title('Grabadora Audio mp3')
 directorio_actual=StringVar()
 
 def clear_contador():
@@ -42,7 +42,7 @@ def iniciar():
     CHANNELS=2
     RATE=44100
     act_proceso=True
-    archivo="grabacion.wav"
+    archivo="grabacion.mp3"
     t1=threading.Thread(target=grabacion, args=(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo))
     t=threading.Thread(target=cuenta)
     t1.start()
@@ -74,7 +74,7 @@ def abrir():
     clear_contador()
     audio=pyaudio.PyAudio()
     open_archive=filedialog.askopenfilename(initialdir = "/",
-                 title = "Seleccione archivo",filetypes = (("wav files","*.wav"),
+                 title = "Seleccione archivo",filetypes = (("mp3 files","*.mp3"),
                  ("all files","*.*")))
     if open_archive!="":
         reproduciendo=True
@@ -104,7 +104,7 @@ def reproduce():
  
     audio.terminate()
     time.after_cancel(proceso)
-    print("FIN")
+    #print("FIN")
     bloqueo('normal')
 
 def bloqueo(s):
@@ -137,18 +137,18 @@ def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
 
     frames=[]
 
-    print("GRABANDO")
+    #print("GRABANDO")
     while grabando==True:
         data=stream.read(CHUNK)
         frames.append(data)
-    print("fin")
+    #print("fin")
 
     #DETENEMOS GRABACIÓN
     stream.stop_stream()
     stream.close()
     audio.terminate()
 
-    grabs = glob.glob('*.wav')
+    grabs = glob.glob('*.mp3')
 
     #CREAMOS/GUARDAMOS EL ARCHIVO DE AUDIO
     count=0
@@ -156,7 +156,7 @@ def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
         if "grabacion" in i:
             count+=1
     if count>0:
-        archivo="grabacion"+"("+str(count)+")"+".wav"
+        archivo="grabacion"+"("+str(count)+")"+".mp3"
         
     waveFile = wave.open(archivo, 'wb')
     waveFile.setnchannels(CHANNELS)
@@ -177,7 +177,7 @@ btnParar.place(x=244,y=71)
 btnDir=Button(ventana, text="Carpeta",width=16,command=direc)
 btnDir.place(x=0,y=71)
 btnAbrir=Button(ventana, text="Abrir",width=16,command=abrir)
-btnAbrir.place(x=366,y=71)#51
+btnAbrir.place(x=366,y=71)
 etDir=Entry(ventana,width=77,bg="lavender",textvariable=directorio_actual)
 etDir.place(x=10,y=0)
  
