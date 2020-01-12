@@ -34,10 +34,8 @@ def iniciar():
     global grabando
     global proceso
     global act_proceso
-    #global contador,contador1,contador2
     clear_contador()
     audio=pyaudio.PyAudio()
-    #btnParar.config(text="Parar Grabación")
     bloqueo('disabled')
     grabando=True
     FORMAT=pyaudio.paInt16
@@ -73,7 +71,6 @@ def abrir():
     global stream
     global f
     global reproduciendo
-    #global contador, contador1,contador2
     clear_contador()
     audio=pyaudio.PyAudio()
     open_archive=filedialog.askopenfilename(initialdir = "/",
@@ -118,7 +115,6 @@ def bloqueo(s):
 def parar():
     global grabando
     global reproduciendo
-    #global contador,contador1,contador2
     if grabando==True:
         grabando=False
         time.after_cancel(proceso)
@@ -172,10 +168,8 @@ def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
 dire()
 time = Label(ventana, fg='green', width=20, text="00:00:00", bg="black", font=("","30"))
 time.place(x=10,y=20)
-#time.pack()
 ventana.geometry("488x97")
  
-#frame=Frame(ventana)
 btnIniciar=Button(ventana, fg='blue',width=16, text='Iniciar', command=iniciar)
 btnIniciar.place(x=122,y=71)
 btnParar=Button(ventana, fg='blue', width=16, text='Parar', command=parar)
@@ -186,7 +180,6 @@ btnAbrir=Button(ventana, text="Abrir",width=16,command=abrir)
 btnAbrir.place(x=366,y=71)#51
 etDir=Entry(ventana,width=77,bg="lavender",textvariable=directorio_actual)
 etDir.place(x=10,y=0)
-#frame.pack()
  
 ventana.mainloop()
 
