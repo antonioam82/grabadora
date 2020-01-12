@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from tkinter import Tk,Label,Button,Frame,filedialog,Entry,StringVar
-#from tkinter import *
 import glob
 import pyaudio
 import os
