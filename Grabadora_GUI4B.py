@@ -59,11 +59,7 @@ def formato(c):
 def cuenta():
     global proceso
     global contador,contador1,contador2
-    #stc=formato(contador)
-    #stc1=formato(contador1)
-    #stc2=formato(contador2)
     time['text'] = str(formato(contador1))+":"+str(formato(contador2))+":"+str(formato(contador))
-    #time['text'] = stc1+":"+stc2+":"+stc 
     contador+=1
     if contador==60:
         contador=0
@@ -189,8 +185,8 @@ btnDir=Button(ventana, text="Carpeta",width=16,command=direc)
 btnDir.place(x=0,y=71)
 btnAbrir=Button(ventana, text="Abrir",width=16,command=abrir)
 btnAbrir.place(x=366,y=71)#51
-etDir=Entry(ventana,width=80,textvariable=directorio_actual)
-etDir.place(x=2,y=0)
+etDir=Entry(ventana,width=77,bg="lavender",textvariable=directorio_actual)
+etDir.place(x=10,y=0)
 #frame.pack()
  
 ventana.mainloop()
