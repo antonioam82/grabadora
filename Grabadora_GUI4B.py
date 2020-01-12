@@ -18,7 +18,7 @@ contador1=0
 contador2=0
 
 ventana = Tk()
-ventana.title('Grabadora Audio mp3')
+ventana.title('Grabadora Audio WAV')
 directorio_actual=StringVar()
 
 def clear_contador():
@@ -42,7 +42,7 @@ def iniciar():
     CHANNELS=2
     RATE=44100
     act_proceso=True
-    archivo="grabacion.mp3"
+    archivo="grabacion.wav"
     t1=threading.Thread(target=grabacion, args=(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo))
     t=threading.Thread(target=cuenta)
     t1.start()
@@ -74,7 +74,7 @@ def abrir():
     clear_contador()
     audio=pyaudio.PyAudio()
     open_archive=filedialog.askopenfilename(initialdir = "/",
-                 title = "Seleccione archivo",filetypes = (("mp3 files","*.mp3"),
+                 title = "Seleccione archivo",filetypes = (("wav files","*.wav"),
                  ("all files","*.*")))
     if open_archive!="":
         reproduciendo=True
@@ -148,7 +148,7 @@ def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
     stream.close()
     audio.terminate()
 
-    grabs = glob.glob('*.mp3')
+    grabs = glob.glob('*.wav')
 
     #CREAMOS/GUARDAMOS EL ARCHIVO DE AUDIO
     count=0
@@ -156,7 +156,7 @@ def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
         if "grabacion" in i:
             count+=1
     if count>0:
-        archivo="grabacion"+"("+str(count)+")"+".mp3"
+        archivo="grabacion"+"("+str(count)+")"+".wav"
         
     waveFile = wave.open(archivo, 'wb')
     waveFile.setnchannels(CHANNELS)
