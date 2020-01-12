@@ -12,6 +12,7 @@ reproduciendo=False
 CHUNK=1024
 data=""
 stream=""
+audio=pyaudio.PyAudio() 
 f=""
 contador=0
 contador1=0
@@ -94,7 +95,7 @@ def reproduce():
     global data
     global stream
     global f
-    audio=pyaudio.PyAudio() 
+    
     while data and reproduciendo==True:  
         stream.write(data)  
         data = f.readframes(CHUNK)  
@@ -182,5 +183,6 @@ etDir=Entry(ventana,width=77,bg="lavender",textvariable=directorio_actual)
 etDir.place(x=10,y=0)
  
 ventana.mainloop()
+
 
 
