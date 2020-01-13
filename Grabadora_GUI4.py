@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from tkinter import Tk,Label,Button,Frame,filedialog
-import pyaudio
+from tkinter import Tk,Label,Button,Frame,filedialog,Entry,StringVar
 import glob
+import pyaudio
 import os
 import wave
 import threading
@@ -12,16 +12,24 @@ reproduciendo=False
 CHUNK=1024
 data=""
 stream=""
+audio=pyaudio.PyAudio() 
 f=""
 contador=0
 contador1=0
 contador2=0
+
+ventana = Tk()
+ventana.title('Grabadora Audio mp3')
+directorio_actual=StringVar()
 
 def clear_contador():
     global contador,contador1,contador2
     contador=0
     contador1=0
     contador2=0
+
+def dire():
+    directorio_actual.set(os.getcwd())
 
 def iniciar():
     global grabando
@@ -35,7 +43,7 @@ def iniciar():
     CHANNELS=2
     RATE=44100
     act_proceso=True
-    archivo="grabacion.wav"
+    archivo="grabacion.mp3"
     t1=threading.Thread(target=grabacion, args=(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo))
     t=threading.Thread(target=cuenta)
     t1.start()
@@ -67,7 +75,7 @@ def abrir():
     clear_contador()
     audio=pyaudio.PyAudio()
     open_archive=filedialog.askopenfilename(initialdir = "/",
-                 title = "Seleccione archivo",filetypes = (("wav files","*.wav"),
+                 title = "Seleccione archivo",filetypes = (("mp3 files","*.mp3"),
                  ("all files","*.*")))
     if open_archive!="":
         reproduciendo=True
@@ -87,7 +95,7 @@ def reproduce():
     global data
     global stream
     global f
-    audio=pyaudio.PyAudio() 
+    
     while data and reproduciendo==True:  
         stream.write(data)  
         data = f.readframes(CHUNK)  
@@ -97,6 +105,7 @@ def reproduce():
  
     audio.terminate()
     time.after_cancel(proceso)
+    #print("FIN")
     bloqueo('normal')
 
 def bloqueo(s):
@@ -119,6 +128,7 @@ def direc():
     directorio=filedialog.askdirectory()
     if directorio!="":
         os.chdir(directorio)
+        dire()
 
 def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
     
@@ -128,22 +138,26 @@ def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
 
     frames=[]
 
+    #print("GRABANDO")
     while grabando==True:
         data=stream.read(CHUNK)
         frames.append(data)
+    #print("fin")
 
     #DETENEMOS GRABACIÓN
     stream.stop_stream()
     stream.close()
     audio.terminate()
 
+    grabs = glob.glob('*.mp3')
+
     #CREAMOS/GUARDAMOS EL ARCHIVO DE AUDIO
     count=0
-    for i in glob.glob("*.wav"):
+    for i in grabs:
         if "grabacion" in i:
             count+=1
     if count>0:
-        archivo="grabacion"+"("+str(count)+")"+".wav"
+        archivo="grabacion"+"("+str(count)+")"+".mp3"
         
     waveFile = wave.open(archivo, 'wb')
     waveFile.setnchannels(CHANNELS)
@@ -152,22 +166,21 @@ def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
     waveFile.writeframes(b''.join(frames))
     waveFile.close()
 
-ventana = Tk()
-ventana.title('Grabadora Audio')
+dire()
 
 time = Label(ventana, fg='green', width=20, text="00:00:00", bg="black", font=("","30"))
-time.pack()
-ventana.geometry("488x77")
+time.place(x=10,y=20)
+ventana.geometry("488x97")
  
-frame=Frame(ventana)
-btnIniciar=Button(frame, fg='blue',width=16, text='Iniciar', command=iniciar)
-btnIniciar.grid(row=1, column=1)
-btnParar=Button(frame, fg='blue', width=16, text='Parar', command=parar)
-btnParar.grid(row=1, column=2)
-btnDir=Button(frame, text="Carpeta",width=16,command=direc)
-btnDir.grid(row=1,column=0)
-btnAbrir=Button(frame, text="Abrir",width=16,command=abrir)
-btnAbrir.grid(row=1,column=3)
-frame.pack()
+btnIniciar=Button(ventana, fg='blue',width=16, text='Grabar', command=iniciar)
+btnIniciar.place(x=122,y=71)
+btnParar=Button(ventana, fg='blue', width=16, text='Parar', command=parar)
+btnParar.place(x=244,y=71)
+btnDir=Button(ventana, text="Carpeta",width=16,command=direc)
+btnDir.place(x=0,y=71)
+btnAbrir=Button(ventana, text="Abrir",width=16,command=abrir)
+btnAbrir.place(x=366,y=71)
+etDir=Entry(ventana,width=77,bg="lavender",textvariable=directorio_actual)
+etDir.place(x=10,y=0)
  
 ventana.mainloop()
