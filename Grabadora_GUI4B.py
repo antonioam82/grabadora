@@ -171,7 +171,7 @@ time = Label(ventana, fg='green', width=20, text="00:00:00", bg="black", font=("
 time.place(x=10,y=20)
 ventana.geometry("488x97")
  
-btnIniciar=Button(ventana, fg='blue',width=16, text='Iniciar', command=iniciar)
+btnIniciar=Button(ventana, fg='blue',width=16, text='Grabar', command=iniciar)
 btnIniciar.place(x=122,y=71)
 btnParar=Button(ventana, fg='blue', width=16, text='Parar', command=parar)
 btnParar.place(x=244,y=71)
