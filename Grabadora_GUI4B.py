@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from tkinter import Tk,Label,Button,Frame,filedialog,Entry,StringVar
+from tkinter import Tk,Label,Button,Frame,filedialog,Entry,StringVar,messagebox
 import glob
 import pyaudio
 import os
@@ -78,18 +78,22 @@ def abrir():
                  title = "Seleccione archivo",filetypes = (("wav files","*.wav"),
                  ("all files","*.*")))
     if open_archive!="":
-        reproduciendo=True
-        f = wave.open(open_archive,"rb")
-        stream = audio.open(format = audio.get_format_from_width(f.getsampwidth()),  
-                    channels = f.getnchannels(),  
-                    rate = f.getframerate(),
-                    output = True)
-        data = f.readframes(CHUNK)
-        bloqueo('disabled')
-        t=threading.Thread(target=cuenta)
-        t.start()
-        t2=threading.Thread(target=reproduce)
-        t2.start()
+        try:
+            reproduciendo=True
+            f = wave.open(open_archive,"rb")
+            stream = audio.open(format = audio.get_format_from_width(f.getsampwidth()),  
+                        channels = f.getnchannels(),  
+                        rate = f.getframerate(),
+                        output = True)
+            data = f.readframes(CHUNK)
+            bloqueo('disabled')
+            t=threading.Thread(target=cuenta)
+            t.start()
+            t2=threading.Thread(target=reproduce)
+            t2.start()
+        except:
+            messagebox.showwarning("ERROR","No se pudo abrir al archivo especificado")
+            reproduciendo=False
 
 def reproduce():
     global data
