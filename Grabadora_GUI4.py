@@ -93,7 +93,7 @@ def abrir():
             t2.start()
         except:
             messagebox.showwarning("ERROR","No se pudo abrir al archivo especificado")
-            
+            reproduciendo=False
 
 def reproduce():
     global data
