@@ -92,7 +92,7 @@ def abrir():
             t2=threading.Thread(target=reproduce)
             t2.start()
         except:
-            messagebox.showwarning("ERROR","No se pudo abrir al archivo especificado")
+            messagebox.showwarning("ERROR","No se pudo abrir al archivo especificado.")
             reproduciendo=False
 
 def reproduce():
