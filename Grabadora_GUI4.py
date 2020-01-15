@@ -14,9 +14,9 @@ data=""
 stream=""
 audio=pyaudio.PyAudio() 
 f=""
-contador=0
-contador1=0
-contador2=0
+#contador=0
+#contador1=0
+#contador2=0
 
 ventana = Tk()
 ventana.title('Grabadora Audio mp3')
