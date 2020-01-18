@@ -7,21 +7,6 @@ import os
 import wave
 import threading
 
-grabando=False
-reproduciendo=False
-CHUNK=1024
-data=""
-stream=""
-audio=pyaudio.PyAudio() 
-f=""
-#contador=0
-#contador1=0
-#contador2=0
-
-ventana = Tk()
-ventana.title('Grabadora Audio mp3')
-directorio_actual=StringVar()
-
 def clear_contador():
     global contador,contador1,contador2
     contador=0
@@ -92,7 +77,7 @@ def abrir():
             t2=threading.Thread(target=reproduce)
             t2.start()
         except:
-            messagebox.showwarning("ERROR","No se pudo abrir al archivo especificado.")
+            messagebox.showwarning("ERROR","No se pudo abrir al archivo especificado")
             reproduciendo=False
 
 def reproduce():
@@ -170,12 +155,26 @@ def grabacion(FORMAT,CHANNELS,RATE,CHUNK,audio,archivo):
     waveFile.writeframes(b''.join(frames))
     waveFile.close()
 
-dire()
+#CREAR VENTANA
+ventana = Tk()
+ventana.title('Grabadora Audio mp3')
 
+#VARIABLES INICIALES
+directorio_actual=StringVar()
+grabando=False
+reproduciendo=False
+CHUNK=1024
+data=""
+stream=""
+audio=pyaudio.PyAudio() 
+f=""
+
+#CONTADOR DE TIEMPO
 time = Label(ventana, fg='green', width=20, text="00:00:00", bg="black", font=("","30"))
 time.place(x=10,y=20)
 ventana.geometry("488x97")
- 
+
+#BOTONES 
 btnIniciar=Button(ventana, fg='blue',width=16, text='Grabar', command=iniciar)
 btnIniciar.place(x=122,y=71)
 btnParar=Button(ventana, fg='blue', width=16, text='Parar', command=parar)
@@ -184,8 +183,11 @@ btnDir=Button(ventana, text="Carpeta",width=16,command=direc)
 btnDir.place(x=0,y=71)
 btnAbrir=Button(ventana, text="Abrir",width=16,command=abrir)
 btnAbrir.place(x=366,y=71)
+
 etDir=Entry(ventana,width=77,bg="lavender",textvariable=directorio_actual)
 etDir.place(x=10,y=0)
+
+dire()
  
 ventana.mainloop()
 
