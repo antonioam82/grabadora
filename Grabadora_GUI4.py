@@ -42,7 +42,7 @@ def formato(c):
 def cuenta():
     global proceso
     global contador,contador1,contador2
-    time['text'] = str(formato(contador1))+":"+str(formato(contador2))+":"+str(formato(contador))
+    time['text'] = str(contador1)+":"+str(formato(contador2))+":"+str(formato(contador))
     contador+=1
     if contador==60:
         contador=0
@@ -170,7 +170,7 @@ audio=pyaudio.PyAudio()
 f=""
 
 #CONTADOR DE TIEMPO
-time = Label(ventana, fg='green', width=20, text="00:00:00", bg="black", font=("","30"))
+time = Label(ventana, fg='green', width=20, text="0:00:00", bg="black", font=("","30"))
 time.place(x=10,y=20)
 ventana.geometry("488x97")
 
